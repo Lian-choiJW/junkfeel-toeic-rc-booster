@@ -39,6 +39,7 @@ export type Part5Question = {
   type: string;
   difficulty: "easy" | "medium" | "hard" | "killer";
   question: string;
+  questionKo?: string;
   choices: Record<ChoiceKey, string>;
   answer: ChoiceKey;
   explanationCorrect: string;

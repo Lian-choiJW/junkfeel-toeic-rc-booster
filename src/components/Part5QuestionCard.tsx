@@ -50,7 +50,14 @@ export function Part5QuestionCard({ question, onNext, onAnswered }: { question: 
           </ol>
         ) : null}
       </div>
-      <h2 className="border-y border-line bg-white px-3 py-3 text-base font-semibold leading-7 text-ink">{question.question}</h2>
+      <div className="border-y border-line bg-white px-3 py-3">
+        <h2 className="text-base font-semibold leading-7 text-ink">{question.question}</h2>
+        {question.questionKo ? (
+          <p className="hidden-korean mt-2 px-2 py-1 text-sm font-semibold leading-6">
+            {question.questionKo}
+          </p>
+        ) : null}
+      </div>
       <div className="grid gap-0 p-3">
         {(Object.keys(question.choices) as ChoiceKey[]).map((key) => (
           <button
