@@ -18,11 +18,11 @@ import { WrongAnswerNote } from "./WrongAnswerNote";
 type Tab = "vocab" | "part5" | "part67" | "wrong" | "report";
 
 const tabs: { id: Tab; label: string }[] = [
-  { id: "vocab", label: "단어공부" },
-  { id: "part5", label: "RC Part 5" },
-  { id: "part67", label: "RC Part 6, 7" },
-  { id: "wrong", label: "오답노트" },
-  { id: "report", label: "학습 리포트" }
+  { id: "vocab", label: "Vocab" },
+  { id: "part5", label: "P5" },
+  { id: "part67", label: "P6-7" },
+  { id: "wrong", label: "Review" },
+  { id: "report", label: "Report" }
 ];
 
 export function StudyTabs() {
@@ -71,41 +71,43 @@ export function StudyTabs() {
   };
 
   return (
-    <div className="space-y-6">
-      <section className="rounded-md border border-line bg-white p-5 shadow-soft">
-        <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-center">
-          <div className="grid gap-3 sm:grid-cols-4">
-            <Metric label="오늘 푼 문제" value={`${stats.solved}개`} />
-            <Metric label="정답률" value={`${stats.accuracy}%`} />
-            <Metric label="많이 틀린 유형" value={stats.weakTag} />
-            <Metric label="추천" value={stats.next} />
+    <div className="space-y-3">
+      <section className="sheet-panel">
+        <div className="grid gap-0 md:grid-cols-[1fr_auto] md:items-stretch">
+          <div className="grid gap-0 sm:grid-cols-4">
+            <Metric label="Rows" value={`${stats.solved}`} />
+            <Metric label="Rate" value={`${stats.accuracy}%`} />
+            <Metric label="Flag" value={stats.weakTag} />
+            <Metric label="Next" value={stats.next} />
           </div>
-          <NextStudyButton onPick={pickRecommended} />
+          <div className="border-t border-line p-2 md:border-l md:border-t-0">
+            <NextStudyButton onPick={pickRecommended} />
+          </div>
         </div>
       </section>
 
-      <section className="grid gap-4 rounded-md border border-blue-100 bg-white p-5 shadow-soft lg:grid-cols-[1fr_1fr]">
-        <div>
-          <p className="text-sm font-black text-ocean">Part 5 Booster</p>
-          <h2 className="mt-1 text-xl font-black text-ink">7-Anchor → S-V-T 순서로 풉니다</h2>
-          <div className="mt-3 flex flex-wrap gap-2">
+      <section className="sheet-panel grid gap-0 lg:grid-cols-[1fr_1fr]">
+        <div className="border-b border-line p-3 lg:border-b-0 lg:border-r">
+          <p className="text-xs font-bold text-slate-500">P5 Structure</p>
+          <h2 className="mt-1 text-base font-bold text-ink">7-Anchor → S-V-T sequence</h2>
+          <div className="mt-3 flex flex-wrap gap-1">
             {["동사", "to-v", "-ing", "한정사", "전치사", "접속사", "동사 개수"].map((anchor) => (
-              <span key={anchor} className="rounded-md bg-blue-50 px-2 py-1 text-sm font-bold text-blue-900">{anchor}</span>
+              <span key={anchor} className="border border-line bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-700">{anchor}</span>
             ))}
           </div>
         </div>
-        <div>
-          <p className="text-sm font-black text-mint">Part 6·7 Booster</p>
-          <h2 className="mt-1 text-xl font-black text-ink">Who / Why / What과 Linkage를 먼저 잡습니다</h2>
-          <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
+        <div className="p-3">
+          <p className="text-xs font-bold text-slate-500">P6-7 Evidence</p>
+          <h2 className="mt-1 text-base font-bold text-ink">Who / Why / What + Linkage</h2>
+          <p className="mt-2 text-sm font-medium leading-6 text-slate-600">
             이메일은 Re:와 발신자 관계, 광고는 숫자 조건, 채팅은 대명사 연결, 다중 지문은 날짜와 인물 이름을 교차 매칭합니다.
           </p>
         </div>
       </section>
 
-      <div className="flex gap-2 overflow-x-auto rounded-md border border-line bg-white p-2">
+      <div className="flex gap-0 overflow-x-auto border border-line bg-slate-100">
         {tabs.map((tab) => (
-          <button key={tab.id} className={`focus-ring shrink-0 rounded-md px-4 py-2 text-sm font-black ${active === tab.id ? "bg-ocean text-white" : "text-slate-600 hover:bg-slate-50"}`} onClick={() => setActive(tab.id)}>
+          <button key={tab.id} className={`focus-ring shrink-0 border-r border-line px-4 py-2 text-xs font-bold ${active === tab.id ? "bg-white text-ocean" : "text-slate-600 hover:bg-white"}`} onClick={() => setActive(tab.id)}>
             {tab.label}
           </button>
         ))}
@@ -113,7 +115,7 @@ export function StudyTabs() {
 
       {active === "vocab" ? (
         <div className="grid gap-4">
-          <div className="flex flex-wrap gap-3 rounded-md border border-line bg-white p-4">
+          <div className="sheet-panel flex flex-wrap gap-2 p-2">
             <Select label="주제" value={topic} onChange={setTopic} options={["all", ...Array.from(new Set(vocabBank.map((item) => item.topic)))]} />
             <Select label="난이도" value={level} onChange={setLevel} options={["all", "basic", "killer"]} />
           </div>
@@ -123,7 +125,7 @@ export function StudyTabs() {
 
       {active === "part5" ? (
         <div className="grid gap-4">
-          <div className="flex flex-wrap gap-3 rounded-md border border-line bg-white p-4">
+          <div className="sheet-panel flex flex-wrap gap-2 p-2">
             <Select label="문법 유형" value={part5Type} onChange={setPart5Type} options={["all", ...Array.from(new Set(part5Bank.map((item) => item.type)))]} />
             <Select label="난이도" value={difficulty} onChange={setDifficulty} options={["all", "easy", "medium", "hard", "killer"]} />
           </div>
@@ -133,7 +135,7 @@ export function StudyTabs() {
 
       {active === "part67" ? (
         <div className="grid gap-4">
-          <div className="flex flex-wrap gap-3 rounded-md border border-line bg-white p-4">
+          <div className="sheet-panel flex flex-wrap gap-2 p-2">
             <Select label="파트" value={part67Part} onChange={setPart67Part} options={["all", "6", "7"]} />
             <Select label="난이도" value={difficulty} onChange={setDifficulty} options={["all", "easy", "medium", "hard", "killer"]} />
           </div>
@@ -151,18 +153,18 @@ export function StudyTabs() {
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md bg-slate-50 p-3">
-      <p className="text-xs font-bold text-slate-500">{label}</p>
-      <p className="mt-1 font-black text-ink">{value}</p>
+    <div className="border-b border-r border-line bg-white p-2 sm:border-b-0">
+      <p className="text-[11px] font-bold uppercase text-slate-500">{label}</p>
+      <p className="mt-1 truncate text-sm font-semibold text-ink">{value}</p>
     </div>
   );
 }
 
 function Select({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: string[] }) {
   return (
-    <label className="grid gap-1 text-sm font-bold text-slate-600">
+    <label className="grid gap-1 text-xs font-bold text-slate-600">
       {label}
-      <select className="focus-ring rounded-md border border-line bg-white px-3 py-2 text-base font-semibold text-ink" value={value} onChange={(event) => onChange(event.target.value)}>
+      <select className="focus-ring border border-line bg-white px-2 py-1.5 text-sm font-semibold text-ink" value={value} onChange={(event) => onChange(event.target.value)}>
         {options.map((option) => (
           <option key={option} value={option}>{option === "all" ? "전체" : option}</option>
         ))}

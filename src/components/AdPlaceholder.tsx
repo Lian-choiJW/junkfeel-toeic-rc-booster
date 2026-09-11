@@ -1,6 +1,6 @@
 export function AdPlaceholder({ label = "Ad Placeholder" }: { label?: string }) {
   return (
-    <aside className="flex min-h-24 items-center justify-center rounded-md border border-dashed border-blue-200 bg-blue-50/70 px-4 py-6 text-center text-sm font-semibold text-blue-700">
+    <aside className="flex min-h-16 items-center justify-center border border-dashed border-slate-300 bg-slate-50 px-4 py-4 text-center text-xs font-semibold text-slate-500">
       {label}
     </aside>
   );

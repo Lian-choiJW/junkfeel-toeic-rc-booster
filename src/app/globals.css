@@ -4,8 +4,8 @@
 
 :root {
   color-scheme: light;
-  background: #f7fbff;
-  color: #14213d;
+  background: #f3f4f6;
+  color: #1f2937;
 }
 
 * {
@@ -15,9 +15,12 @@
 body {
   margin: 0;
   background:
-    linear-gradient(180deg, rgba(219, 234, 254, 0.7), rgba(255, 255, 255, 0) 320px),
-    #f8fbff;
-  color: #14213d;
+    linear-gradient(#eef2f7 1px, transparent 1px),
+    linear-gradient(90deg, #eef2f7 1px, transparent 1px),
+    #f8fafc;
+  background-size: 28px 28px;
+  color: #1f2937;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 a {
@@ -45,4 +48,16 @@ a {
 
 .focus-ring {
   @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean;
+}
+
+.sheet-panel {
+  @apply rounded-none border border-line bg-white shadow-soft;
+}
+
+.sheet-cell {
+  @apply border border-line bg-white px-3 py-2 text-sm;
+}
+
+.sheet-heading {
+  @apply bg-slate-100 px-3 py-2 text-xs font-bold uppercase tracking-normal text-slate-600;
 }

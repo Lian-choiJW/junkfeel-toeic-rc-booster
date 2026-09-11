@@ -2,10 +2,13 @@ import { StudyTabs } from "@/components/StudyTabs";
 
 export default function StudyPage() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-10">
-      <div className="mb-6">
-        <h1 className="text-3xl font-black text-ink">오늘의 RC 학습</h1>
-        <p className="mt-2 leading-7 text-slate-600">단어, Part 5, Part 6·7, 오답노트, 리포트를 한 화면에서 이어서 학습합니다.</p>
+    <section className="mx-auto max-w-7xl px-3 py-4">
+      <div className="mb-3 border border-line bg-white">
+        <div className="border-b border-line bg-slate-100 px-3 py-2 text-xs font-semibold text-slate-600">Workbook / Daily RC Sheet</div>
+        <div className="px-3 py-3">
+          <h1 className="text-xl font-bold text-ink">Daily RC Workbook</h1>
+          <p className="mt-1 text-sm leading-6 text-slate-600">Vocabulary, structure, reading evidence, review log.</p>
+        </div>
       </div>
       <StudyTabs />
     </section>
