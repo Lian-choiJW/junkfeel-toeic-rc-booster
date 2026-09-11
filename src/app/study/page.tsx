@@ -1,4 +1,5 @@
 import { StudyTabs } from "@/components/StudyTabs";
+import { SelectionDictionary } from "@/components/SelectionDictionary";
 
 export default function StudyPage() {
   return (
@@ -11,6 +12,7 @@ export default function StudyPage() {
         </div>
       </div>
       <StudyTabs />
+      <SelectionDictionary />
     </section>
   );
 }
