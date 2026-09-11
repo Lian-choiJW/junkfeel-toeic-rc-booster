@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  background: #f7fbff;
+  color: #14213d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(219, 234, 254, 0.7), rgba(255, 255, 255, 0) 320px),
+    #f8fbff;
+  color: #14213d;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hidden-korean {
+  color: #ffffff;
+  background-color: #ffffff;
+  user-select: text;
+  border: 1px dashed #d8e3f0;
+}
+
+.hidden-korean::selection {
+  color: #111827;
+  background-color: #dbeafe;
+}
+
+.translation-reveal {
+  color: #111827;
+  background-color: #f9fafb;
+  border: 1px solid #d8e3f0;
+}
+
+.focus-ring {
+  @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean;
+}
