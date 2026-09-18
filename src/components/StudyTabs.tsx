@@ -183,6 +183,19 @@ export function StudyTabs() {
         </div>
       </section>
 
+      <section className="sheet-panel grid gap-0 md:grid-cols-3">
+        {[
+          ["P5 Trap", "비교급은 than 신호, 시제는 기간 표현, to는 전치사인지 먼저 확인"],
+          ["P6 Link", "문장삽입은 앞 기능 설명과 뒤 예외/결과 문장을 동시에 연결"],
+          ["P7 Review", "정답 근거, 오답 이유, 패러프레이징을 한 줄로 표시하며 복습"]
+        ].map(([title, text]) => (
+          <div key={title} className="border-b border-line p-3 md:border-b-0 md:border-r last:border-r-0">
+            <p className="text-xs font-bold text-slate-500">{title}</p>
+            <p className="mt-1 text-sm font-semibold leading-6 text-slate-700">{text}</p>
+          </div>
+        ))}
+      </section>
+
       <div className="flex gap-0 overflow-x-auto border border-line bg-slate-100">
         {tabs.map((tab) => (
           <button key={tab.id} className={`focus-ring shrink-0 border-r border-line px-4 py-2 text-xs font-bold ${active === tab.id ? "bg-white text-ocean" : "text-slate-600 hover:bg-white"}`} onClick={() => setActive(tab.id)}>
