@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { part5Bank } from "@/data/part5Bank";
 import { part67Bank } from "@/data/part67Bank";
 import { latestToeicScore, rcAbilityProfile, scoreComparison } from "@/data/scoreProfile";
@@ -25,6 +25,7 @@ const tabs: { id: StudyTab; label: string }[] = [
 ];
 
 export function StudyTabs() {
+  const studyContentRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<StudyTab>("part5");
   const [vocabIndex, setVocabIndex] = useState(0);
   const [part5Index, setPart5Index] = useState(0);
@@ -48,6 +49,12 @@ export function StudyTabs() {
   const vocab = vocabItems[vocabIndex % Math.max(vocabItems.length, 1)] || vocabBank[0];
   const part5 = part5Items[part5Index % Math.max(part5Items.length, 1)] || part5Bank[0];
   const part67 = part67Items[part67Index % Math.max(part67Items.length, 1)] || part67Bank[0];
+
+  const scrollToStudyContent = () => {
+    window.setTimeout(() => {
+      studyContentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  };
 
   useEffect(() => {
     refresh();
@@ -118,6 +125,22 @@ export function StudyTabs() {
       setPart67Index(Math.max(0, part67Bank.findIndex((item) => item.id === itemId)));
     }
     setActive(target);
+    scrollToStudyContent();
+  };
+
+  const moveToNextVocab = () => {
+    setVocabIndex((index) => index + 1);
+    scrollToStudyContent();
+  };
+
+  const moveToNextPart5 = () => {
+    setPart5Index((index) => index + 1);
+    scrollToStudyContent();
+  };
+
+  const moveToNextPart67 = () => {
+    setPart67Index((index) => index + 1);
+    scrollToStudyContent();
   };
 
   return (
@@ -204,13 +227,15 @@ export function StudyTabs() {
         ))}
       </div>
 
+      <div ref={studyContentRef} className="scroll-mt-3" />
+
       {active === "vocab" ? (
         <div className="grid gap-4">
           <div className="sheet-panel flex flex-wrap gap-2 p-2">
             <Select label="주제" value={topic} onChange={setTopic} options={["all", ...Array.from(new Set(vocabBank.map((item) => item.topic)))]} />
             <Select label="난이도" value={level} onChange={setLevel} options={["all", "basic", "killer"]} />
           </div>
-          <VocabCard item={vocab} onNext={() => setVocabIndex((index) => index + 1)} />
+          <VocabCard item={vocab} onNext={moveToNextVocab} />
         </div>
       ) : null}
 
@@ -220,7 +245,7 @@ export function StudyTabs() {
             <Select label="문법 유형" value={part5Type} onChange={setPart5Type} options={["all", ...Array.from(new Set(part5Bank.map((item) => item.type)))]} />
             <Select label="난이도" value={difficulty} onChange={setDifficulty} options={["all", "easy", "medium", "hard", "killer"]} />
           </div>
-          <Part5QuestionCard question={part5} onNext={() => setPart5Index((index) => index + 1)} onAnswered={refresh} />
+          <Part5QuestionCard question={part5} onNext={moveToNextPart5} onAnswered={refresh} />
         </div>
       ) : null}
 
@@ -230,7 +255,7 @@ export function StudyTabs() {
             <Select label="파트" value={part67Part} onChange={setPart67Part} options={["all", "6", "7"]} />
             <Select label="난이도" value={difficulty} onChange={setDifficulty} options={["all", "easy", "medium", "hard", "killer"]} />
           </div>
-          <Part67PassageCard item={part67} onNext={() => setPart67Index((index) => index + 1)} onAnswered={refresh} />
+          <Part67PassageCard item={part67} onNext={moveToNextPart67} onAnswered={refresh} />
         </div>
       ) : null}
 
