@@ -235,7 +235,7 @@ export function StudyTabs() {
             <Select label="주제" value={topic} onChange={setTopic} options={["all", ...Array.from(new Set(vocabBank.map((item) => item.topic)))]} />
             <Select label="난이도" value={level} onChange={setLevel} options={["all", "basic", "killer"]} />
           </div>
-          <VocabCard item={vocab} onNext={moveToNextVocab} />
+          <VocabCard item={vocab} onNext={moveToNextVocab} onAnswered={refresh} />
         </div>
       ) : null}
 
