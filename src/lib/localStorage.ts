@@ -1,7 +1,8 @@
-import type { StudyResult, WrongAnswerItem } from "@/types";
+import type { StudyProgress, StudyResult, WrongAnswerItem } from "@/types";
 
 const WRONG_KEY = "toeic-rc-booster-wrong-answers";
 const RESULT_KEY = "toeic-rc-booster-study-results";
+const PROGRESS_KEY = "toeic-rc-booster-study-progress";
 
 function readJson<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -41,4 +42,12 @@ export function getStudyResults() {
 
 export function saveStudyResult(result: StudyResult) {
   writeJson(RESULT_KEY, [result, ...getStudyResults()]);
+}
+
+export function getStudyProgress() {
+  return readJson<StudyProgress | null>(PROGRESS_KEY, null);
+}
+
+export function saveStudyProgress(progress: StudyProgress) {
+  writeJson(PROGRESS_KEY, progress);
 }

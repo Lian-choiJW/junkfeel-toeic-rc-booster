@@ -109,6 +109,23 @@ export type StudyResult = {
   tags: string[];
 };
 
+export type StudyTab = "vocab" | "part5" | "part67" | "wrong" | "report";
+
+export type StudyProgress = {
+  activeTab: StudyTab;
+  vocabItemId: string;
+  part5ItemId: string;
+  part67ItemId: string;
+  filters: {
+    topic: string;
+    level: string;
+    part5Type: string;
+    difficulty: string;
+    part67Part: string;
+  };
+  updatedAt: string;
+};
+
 export type DiagnosisInput = {
   totalScore: number;
   lcScore: number;

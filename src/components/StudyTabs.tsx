@@ -5,9 +5,9 @@ import { part5Bank } from "@/data/part5Bank";
 import { part67Bank } from "@/data/part67Bank";
 import { latestToeicScore, rcAbilityProfile, scoreComparison } from "@/data/scoreProfile";
 import { vocabBank } from "@/data/vocabBank";
-import { getStudyResults } from "@/lib/localStorage";
+import { getStudyProgress, getStudyResults, saveStudyProgress } from "@/lib/localStorage";
 import { getDashboardStats } from "@/lib/studyEngine";
-import type { StudyResult } from "@/types";
+import type { StudyProgress, StudyResult, StudyTab } from "@/types";
 import { AdPlaceholder } from "./AdPlaceholder";
 import { NextStudyButton } from "./NextStudyButton";
 import { Part5QuestionCard } from "./Part5QuestionCard";
@@ -16,9 +16,7 @@ import { StudyReport } from "./StudyReport";
 import { VocabCard } from "./VocabCard";
 import { WrongAnswerNote } from "./WrongAnswerNote";
 
-type Tab = "vocab" | "part5" | "part67" | "wrong" | "report";
-
-const tabs: { id: Tab; label: string }[] = [
+const tabs: { id: StudyTab; label: string }[] = [
   { id: "vocab", label: "Vocab" },
   { id: "part5", label: "P5" },
   { id: "part67", label: "P6-7" },
@@ -27,7 +25,7 @@ const tabs: { id: Tab; label: string }[] = [
 ];
 
 export function StudyTabs() {
-  const [active, setActive] = useState<Tab>("part5");
+  const [active, setActive] = useState<StudyTab>("part5");
   const [vocabIndex, setVocabIndex] = useState(0);
   const [part5Index, setPart5Index] = useState(0);
   const [part67Index, setPart67Index] = useState(0);
@@ -37,12 +35,10 @@ export function StudyTabs() {
   const [difficulty, setDifficulty] = useState("all");
   const [part67Part, setPart67Part] = useState("all");
   const [results, setResults] = useState<StudyResult[]>([]);
+  const [isProgressLoaded, setIsProgressLoaded] = useState(false);
+  const [progress, setProgress] = useState<StudyProgress | null>(null);
 
   const refresh = () => setResults(getStudyResults());
-
-  useEffect(() => {
-    refresh();
-  }, []);
 
   const stats = getDashboardStats(results);
   const vocabItems = useMemo(() => vocabBank.filter((item) => item.status === "active" && (topic === "all" || item.topic === topic) && (level === "all" || item.level === level)), [topic, level]);
@@ -52,6 +48,59 @@ export function StudyTabs() {
   const vocab = vocabItems[vocabIndex % Math.max(vocabItems.length, 1)] || vocabBank[0];
   const part5 = part5Items[part5Index % Math.max(part5Items.length, 1)] || part5Bank[0];
   const part67 = part67Items[part67Index % Math.max(part67Items.length, 1)] || part67Bank[0];
+
+  useEffect(() => {
+    refresh();
+
+    const saved = getStudyProgress();
+    if (saved) {
+      const savedTopic = saved.filters.topic || "all";
+      const savedLevel = saved.filters.level || "all";
+      const savedPart5Type = saved.filters.part5Type || "all";
+      const savedDifficulty = saved.filters.difficulty || "all";
+      const savedPart67Part = saved.filters.part67Part || "all";
+
+      const savedVocabItems = vocabBank.filter((item) => item.status === "active" && (savedTopic === "all" || item.topic === savedTopic) && (savedLevel === "all" || item.level === savedLevel));
+      const savedPart5Items = part5Bank.filter((item) => item.status === "active" && (savedPart5Type === "all" || item.type === savedPart5Type) && (savedDifficulty === "all" || item.difficulty === savedDifficulty));
+      const savedPart67Items = part67Bank.filter((item) => item.status === "active" && (savedPart67Part === "all" || item.part === savedPart67Part) && (savedDifficulty === "all" || item.difficulty === savedDifficulty));
+
+      setTopic(savedTopic);
+      setLevel(savedLevel);
+      setPart5Type(savedPart5Type);
+      setDifficulty(savedDifficulty);
+      setPart67Part(savedPart67Part);
+      setVocabIndex(Math.max(0, savedVocabItems.findIndex((item) => item.id === saved.vocabItemId)));
+      setPart5Index(Math.max(0, savedPart5Items.findIndex((item) => item.id === saved.part5ItemId)));
+      setPart67Index(Math.max(0, savedPart67Items.findIndex((item) => item.id === saved.part67ItemId)));
+      setActive(saved.activeTab);
+      setProgress(saved);
+    }
+
+    setIsProgressLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isProgressLoaded) return;
+
+    const nextProgress: StudyProgress = {
+      activeTab: active,
+      vocabItemId: vocab.id,
+      part5ItemId: part5.id,
+      part67ItemId: part67.id,
+      filters: {
+        topic,
+        level,
+        part5Type,
+        difficulty,
+        part67Part
+      },
+      updatedAt: new Date().toISOString()
+    };
+
+    saveStudyProgress(nextProgress);
+    setProgress(nextProgress);
+  }, [active, vocab.id, part5.id, part67.id, topic, level, part5Type, difficulty, part67Part, isProgressLoaded]);
+
   const pickRecommended = (target: "vocab" | "part5" | "part67", itemId: string) => {
     if (target === "vocab") {
       setTopic("all");
@@ -105,6 +154,13 @@ export function StudyTabs() {
           <div className="border-t border-line p-2 md:border-l md:border-t-0">
             <NextStudyButton onPick={pickRecommended} />
           </div>
+        </div>
+        <div className="border-t border-line bg-slate-50 px-3 py-2">
+          <p className="text-xs font-bold text-slate-500">Saved Position</p>
+          <p className="mt-1 text-sm font-semibold text-ink">
+            {progress ? `${progressLabel(active)} · ${currentItemLabel(active, vocab.id, part5.id, part67.id)} · ${currentIndexLabel(active, vocabIndex, vocabItems.length, part5Index, part5Items.length, part67Index, part67Items.length)}` : "아직 저장된 학습 위치가 없습니다."}
+          </p>
+          {progress ? <p className="mt-1 text-xs font-semibold text-slate-500">마지막 저장: {formatSavedTime(progress.updatedAt)}</p> : null}
         </div>
       </section>
 
@@ -171,6 +227,52 @@ export function StudyTabs() {
       <AdPlaceholder label="Study Dashboard Ad Placeholder" />
     </div>
   );
+}
+
+function progressLabel(tab: StudyTab) {
+  const labels: Record<StudyTab, string> = {
+    vocab: "Vocab",
+    part5: "Part 5",
+    part67: "Part 6-7",
+    wrong: "Review",
+    report: "Report"
+  };
+
+  return labels[tab];
+}
+
+function currentItemLabel(tab: StudyTab, vocabId: string, part5Id: string, part67Id: string) {
+  if (tab === "vocab") return vocabId;
+  if (tab === "part5") return part5Id;
+  if (tab === "part67") return part67Id;
+  return "학습 기록";
+}
+
+function currentIndexLabel(
+  tab: StudyTab,
+  vocabIndex: number,
+  vocabTotal: number,
+  part5Index: number,
+  part5Total: number,
+  part67Index: number,
+  part67Total: number
+) {
+  if (tab === "vocab") return `${(vocabIndex % Math.max(vocabTotal, 1)) + 1}/${vocabTotal}`;
+  if (tab === "part5") return `${(part5Index % Math.max(part5Total, 1)) + 1}/${part5Total}`;
+  if (tab === "part67") return `${(part67Index % Math.max(part67Total, 1)) + 1}/${part67Total}`;
+  return "자동 복원";
+}
+
+function formatSavedTime(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+
+  return date.toLocaleString("ko-KR", {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 }
 
 function Metric({ label, value }: { label: string; value: string }) {
