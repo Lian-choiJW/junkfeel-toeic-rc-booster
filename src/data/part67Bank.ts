@@ -400,5 +400,248 @@ export const part67Bank: Part67Question[] = [
     ],
     tags: ["triple-passage", "itemization", "number-condition", "inference"],
     status: "active"
+  },
+  {
+    id: "P6-005",
+    part: "6",
+    passageType: "memo",
+    difficulty: "medium",
+    passage: {
+      en: [
+        "To: All Customer Support Staff",
+        "The training room on the second floor will be used for a visiting client presentation on Wednesday morning.",
+        "______, the weekly complaint-resolution workshop will be held in Conference Room B instead.",
+        "Please bring your case notes and arrive five minutes early so the session can begin on time."
+      ],
+      ko: [
+        "수신: 모든 고객 지원 직원",
+        "2층 교육실은 수요일 오전 방문 고객 발표에 사용될 예정입니다.",
+        "______ 주간 불만 해결 워크숍은 대신 B 회의실에서 열릴 예정입니다.",
+        "세션이 정시에 시작될 수 있도록 사례 메모를 가져오고 5분 일찍 도착해 주십시오."
+      ]
+    },
+    question: "Which word or phrase best completes the blank?",
+    choices: { A: "For example", B: "As a result", C: "Nevertheless", D: "In addition" },
+    answer: "B",
+    evidenceSentence: "training room ... will be used ... workshop will be held in Conference Room B instead",
+    explanationCorrect: "교육실을 사용할 수 없게 된 결과로 장소가 변경되었으므로 As a result가 맞습니다.",
+    explanationWrong: {
+      A: "예시를 드는 흐름이 아닙니다.",
+      B: "정답입니다.",
+      C: "대조가 아니라 원인-결과 관계입니다.",
+      D: "추가 정보가 아니라 장소 변경의 결과입니다."
+    },
+    scanStrategy: {
+      who: "Customer Support Staff",
+      why: "training room is occupied",
+      what: "workshop moved to Conference Room B",
+      trigger: "Part 6 연결어는 앞 문장의 상황과 빈칸 뒤 조치의 논리 관계를 먼저 잡습니다."
+    },
+    linkageClues: ["will be used", "As a result", "instead"],
+    questionFocus: "paraphrase",
+    paraphrase: [
+      { passageExpression: "will be held in Conference Room B instead", answerExpression: "location change", meaningKo: "장소 변경" }
+    ],
+    tags: ["memo", "connector", "part6", "location-change"],
+    status: "active"
+  },
+  {
+    id: "P6-006",
+    part: "6",
+    passageType: "email",
+    difficulty: "hard",
+    passage: {
+      en: [
+        "Dear Ms. Ortega,",
+        "Thank you for sending the draft brochure for the trade fair.",
+        "Our team has finished reviewing the pricing table, but we noticed that the warranty information is missing from the final page.",
+        "Please add that section before noon tomorrow. ______",
+        "Once the file is updated, I will forward it to the printer for a final proof."
+      ],
+      ko: [
+        "Ortega 님께,",
+        "무역 박람회용 브로슈어 초안을 보내 주셔서 감사합니다.",
+        "저희 팀은 가격표 검토를 마쳤지만 마지막 페이지에 보증 정보가 빠져 있는 것을 확인했습니다.",
+        "내일 정오 전까지 해당 섹션을 추가해 주십시오. ______",
+        "파일이 업데이트되면 최종 교정을 위해 인쇄업체에 전달하겠습니다."
+      ]
+    },
+    question: "Which sentence best fits in the blank?",
+    choices: {
+      A: "The fair was attended by more visitors than expected.",
+      B: "This will allow us to meet the printer's deadline.",
+      C: "The brochure was delivered to customers last month.",
+      D: "Several employees have requested new business cards."
+    },
+    answer: "B",
+    evidenceSentence: "before noon tomorrow ... forward it to the printer for a final proof",
+    explanationCorrect: "정오 전까지 수정해야 인쇄업체 마감에 맞출 수 있다는 흐름이 가장 자연스럽습니다.",
+    explanationWrong: {
+      A: "방문객 수는 브로슈어 수정 요청과 연결되지 않습니다.",
+      B: "정답입니다.",
+      C: "아직 인쇄 전 최종 교정 단계이므로 이미 고객에게 전달됐다는 내용은 맞지 않습니다.",
+      D: "명함 요청은 브로슈어 파일 수정과 무관합니다."
+    },
+    scanStrategy: {
+      who: "Ms. Ortega and the sender",
+      why: "warranty information is missing",
+      what: "add section before noon, then send to printer",
+      trigger: "문장 삽입은 빈칸 앞의 요청과 뒤의 다음 행동을 자연스럽게 연결하는 문장을 고릅니다."
+    },
+    linkageClues: ["missing", "before noon tomorrow", "printer's deadline", "Once the file is updated"],
+    questionFocus: "sentence-insertion",
+    paraphrase: [
+      { passageExpression: "before noon tomorrow", answerExpression: "deadline", meaningKo: "마감 시간" }
+    ],
+    tags: ["email", "sentence-insertion", "deadline", "part6"],
+    status: "active"
+  },
+  {
+    id: "P7-007",
+    part: "7",
+    passageType: "email",
+    difficulty: "medium",
+    passage: {
+      en: [
+        "Subject: Phase Two Schedule",
+        "Hello Project Team,",
+        "The first round of user interviews for the inventory app was completed yesterday, and the summary report is now in the shared folder.",
+        "Because several participants mentioned delays in barcode scanning, the design group will revise the checkout screen before the next test.",
+        "Please review the report by Friday and send any questions to Mina Cho before Monday's planning meeting."
+      ],
+      ko: [
+        "제목: 2단계 일정",
+        "프로젝트 팀 여러분,",
+        "재고 앱에 대한 1차 사용자 인터뷰가 어제 완료되었으며, 요약 보고서는 현재 공유 폴더에 있습니다.",
+        "여러 참가자가 바코드 스캔 지연을 언급했기 때문에 디자인 그룹은 다음 테스트 전에 결제 화면을 수정할 예정입니다.",
+        "금요일까지 보고서를 검토하고 월요일 계획 회의 전에 질문이 있으면 Mina Cho에게 보내 주십시오."
+      ]
+    },
+    question: "What is the main purpose of the email?",
+    choices: {
+      A: "To announce that a product has been released",
+      B: "To summarize interview results and request a review",
+      C: "To cancel a planning meeting",
+      D: "To ask employees to install barcode scanners"
+    },
+    answer: "B",
+    evidenceSentence: "summary report is now in the shared folder ... Please review the report by Friday",
+    explanationCorrect: "인터뷰 완료와 보고서 위치를 알리고 검토를 요청하는 이메일입니다.",
+    explanationWrong: {
+      A: "제품 출시가 아니라 사용자 인터뷰 후속 조치입니다.",
+      B: "정답입니다.",
+      C: "회의 취소가 아니라 회의 전 질문 제출을 요청합니다.",
+      D: "스캐너 설치 요청은 없습니다."
+    },
+    scanStrategy: {
+      who: "Project Team",
+      why: "phase two planning after user interviews",
+      what: "review the shared report by Friday",
+      trigger: "목적 문제는 제목, 첫 핵심 문장, 마지막 요청 문장을 연결합니다."
+    },
+    linkageClues: ["completed yesterday", "summary report", "review the report", "planning meeting"],
+    questionFocus: "purpose",
+    paraphrase: [
+      { passageExpression: "Please review the report", answerExpression: "request a review", meaningKo: "검토 요청" }
+    ],
+    tags: ["email", "purpose", "project", "deadline"],
+    status: "active"
+  },
+  {
+    id: "P7-008",
+    part: "7",
+    passageType: "advertisement",
+    difficulty: "hard",
+    passage: {
+      en: [
+        "HarborPoint Work Suites is now accepting reservations for furnished offices near Central Station.",
+        "Each suite includes secure wireless service, shared reception support, and access to two small meeting rooms.",
+        "Clients who sign a twelve-month agreement by October 15 will receive the first month of reception support at no additional charge.",
+        "Tours are available on weekdays between 10 a.m. and 4 p.m. by appointment only."
+      ],
+      ko: [
+        "HarborPoint Work Suites는 Central Station 근처의 가구가 비치된 사무실 예약을 받고 있습니다.",
+        "각 사무실에는 보안 무선 서비스, 공동 접수 지원, 소형 회의실 두 곳 이용이 포함됩니다.",
+        "10월 15일까지 12개월 계약을 체결하는 고객은 첫 달 접수 지원을 추가 비용 없이 받을 수 있습니다.",
+        "투어는 평일 오전 10시부터 오후 4시 사이에 예약제로만 가능합니다."
+      ]
+    },
+    question: "What is offered to clients who sign a twelve-month agreement by October 15?",
+    choices: {
+      A: "Free reception support for one month",
+      B: "A larger office at the same price",
+      C: "Weekend tours without an appointment",
+      D: "A discount on train tickets"
+    },
+    answer: "A",
+    evidenceSentence: "first month of reception support at no additional charge",
+    explanationCorrect: "12개월 계약을 기한 내 체결하면 첫 달 접수 지원을 무료로 제공합니다.",
+    explanationWrong: {
+      A: "정답입니다.",
+      B: "더 큰 사무실 제공은 언급되지 않았습니다.",
+      C: "투어는 평일 예약제로만 가능합니다.",
+      D: "기차표 할인은 없습니다."
+    },
+    scanStrategy: {
+      who: "clients who sign a twelve-month agreement",
+      why: "promotional offer",
+      what: "first month of reception support free",
+      trigger: "광고문은 조건문 who/if/by 날짜와 혜택 표현 free/no additional charge를 같이 묶어 읽습니다."
+    },
+    linkageClues: ["twelve-month agreement", "by October 15", "no additional charge"],
+    questionFocus: "detail",
+    paraphrase: [
+      { passageExpression: "at no additional charge", answerExpression: "Free", meaningKo: "추가 비용 없이" }
+    ],
+    tags: ["advertisement", "benefit", "condition", "office"],
+    status: "active"
+  },
+  {
+    id: "P7-009",
+    part: "7",
+    passageType: "invoice",
+    difficulty: "killer",
+    passage: {
+      en: [
+        "Order Summary - Blue Ridge Hotel: 120 reusable laundry bags, delivery requested for August 12. A rush-delivery fee applies to orders needed within three business days.",
+        "Invoice Note - Alpine Supply: The order was placed on August 9 at 3:10 p.m. Standard processing begins the next business morning.",
+        "Message from Purchasing Manager: Please approve the additional delivery fee today so the bags can arrive before the weekend occupancy increase."
+      ],
+      ko: [
+        "주문 요약 - Blue Ridge Hotel: 재사용 세탁 가방 120개, 배송 요청일 8월 12일. 영업일 기준 3일 이내 필요한 주문에는 긴급 배송 수수료가 적용됩니다.",
+        "송장 메모 - Alpine Supply: 주문은 8월 9일 오후 3시 10분에 접수되었습니다. 표준 처리는 다음 영업일 아침에 시작됩니다.",
+        "구매 관리자 메시지: 주말 객실 점유율 증가 전에 가방이 도착할 수 있도록 오늘 추가 배송 수수료를 승인해 주십시오."
+      ]
+    },
+    question: "Why is Blue Ridge Hotel being asked to approve an additional fee?",
+    choices: {
+      A: "The hotel requested more items than were available.",
+      B: "The order must arrive sooner than standard processing allows.",
+      C: "The supplier changed the product design.",
+      D: "The hotel asked to return unused laundry bags."
+    },
+    answer: "B",
+    evidenceSentence: "rush-delivery fee applies ... Standard processing begins the next business morning ... arrive before the weekend occupancy increase",
+    explanationCorrect: "표준 처리로는 필요한 시점에 맞추기 어려워 긴급 배송 수수료 승인을 요청하고 있습니다.",
+    explanationWrong: {
+      A: "재고 부족은 언급되지 않았습니다.",
+      B: "정답입니다.",
+      C: "제품 디자인 변경은 없습니다.",
+      D: "반품 요청이 아니라 배송 요청입니다."
+    },
+    scanStrategy: {
+      who: "Blue Ridge Hotel and Alpine Supply",
+      why: "rush delivery before weekend occupancy increase",
+      what: "additional delivery fee",
+      trigger: "송장/주문 다중지문은 날짜, 처리 시작일, 추가 요금 조건을 서로 대조합니다."
+    },
+    linkageClues: ["rush-delivery fee", "within three business days", "next business morning", "before the weekend"],
+    questionFocus: "inference",
+    paraphrase: [
+      { passageExpression: "rush-delivery fee", answerExpression: "additional fee", meaningKo: "추가 배송 수수료" },
+      { passageExpression: "arrive before the weekend", answerExpression: "sooner than standard processing allows", meaningKo: "표준 처리보다 빠른 도착 필요" }
+    ],
+    tags: ["invoice", "triple-passage", "number-condition", "inference"],
+    status: "active"
   }
 ];

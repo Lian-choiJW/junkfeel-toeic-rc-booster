@@ -218,6 +218,33 @@ const vocabTopics: VocabTopic[] = [
       ["credential", "로그인 자격 정보, 증명서", "noun", "Do not share your credentials with temporary staff.", "임시 직원과 로그인 정보를 공유하지 마세요.", "login credentials", "killer"],
       ["retrieve", "검색하다, 되찾다", "verb", "Users can retrieve deleted messages within seven days.", "사용자는 7일 이내에 삭제된 메시지를 복구할 수 있습니다.", "retrieve data", "killer"]
     ]
+  },
+  {
+    topic: "phrases",
+    tag: "idiom",
+    context: "Part 5 전치사/접속사 구분, Part 6 연결어, Part 7 조건문에서 바로 덩어리로 읽어야 하는 숙어",
+    items: [
+      ["due to", "~때문에", "preposition", "The outdoor seminar was moved indoors due to strong winds.", "야외 세미나는 강풍 때문에 실내로 옮겨졌습니다.", "due to strong winds", "basic", ["because of", "owing to", "on account of"]],
+      ["in order to", "~하기 위해서", "phrase", "The hotel added signs in order to guide guests to the temporary entrance.", "호텔은 임시 입구로 투숙객을 안내하기 위해 표지판을 추가했습니다.", "in order to guide guests", "basic", ["so as to", "to guide guests"]],
+      ["be responsible for", "~을 담당하다, 책임지다", "idiom", "The facilities team is responsible for inspecting emergency exits.", "시설팀은 비상구 점검을 담당합니다.", "be responsible for inspecting", "killer", ["be in charge of", "be tasked with"]],
+      ["as a result of", "~의 결과로", "phrase", "As a result of the software upgrade, invoices can be processed faster.", "소프트웨어 업그레이드의 결과로 송장을 더 빠르게 처리할 수 있습니다.", "as a result of the upgrade", "killer", ["consequently", "because of the upgrade"]],
+      ["require O to v", "목적어가 ~하도록 요구하다", "grammar pattern", "The policy requires visitors to show identification at reception.", "그 정책은 방문객이 접수처에서 신분증을 제시하도록 요구합니다.", "require visitors to show", "killer", ["require employees to submit", "ask visitors to show"]],
+      ["thorough analysis", "철저한 분석", "collocation", "A thorough analysis of customer complaints revealed two recurring problems.", "고객 불만에 대한 철저한 분석은 두 가지 반복 문제를 드러냈습니다.", "thorough analysis of complaints", "killer", ["detailed examination", "careful review"]],
+      ["mandatory", "의무적인, 필수적인", "adjective", "Attendance at the safety briefing is mandatory for all laboratory staff.", "안전 설명회 참석은 모든 실험실 직원에게 의무입니다.", "mandatory attendance", "killer", ["compulsory", "required", "obligatory"]],
+      ["coincide with", "~와 동시에 일어나다, 일치하다", "verb", "The product launch will coincide with the annual trade fair.", "제품 출시는 연례 무역 박람회와 동시에 진행될 것입니다.", "coincide with the fair", "killer", ["match", "occur at the same time as"]],
+      ["on an hourly basis", "시간당으로", "idiom", "Consultants will be paid on an hourly basis during the trial period.", "컨설턴트들은 시험 기간 동안 시간당으로 보수를 받습니다.", "paid on an hourly basis", "killer", ["hourly rate", "by the hour"]],
+      ["no later than", "늦어도 ~까지는", "idiom", "Registration forms must be submitted no later than Thursday afternoon.", "등록 양식은 늦어도 목요일 오후까지 제출되어야 합니다.", "no later than Thursday", "basic", ["by Thursday", "at the latest"]],
+      ["prior to", "~전에", "preposition", "All equipment must be inspected prior to the client demonstration.", "모든 장비는 고객 시연 전에 점검되어야 합니다.", "prior to the demonstration", "basic", ["before", "ahead of"]],
+      ["be subject to", "~의 대상이다, ~될 수 있다", "idiom", "Reservations canceled after 6 p.m. are subject to a service fee.", "오후 6시 이후 취소된 예약은 서비스 수수료가 부과될 수 있습니다.", "be subject to a fee", "killer", ["may incur", "are liable for"]],
+      ["in accordance with", "~에 따라", "phrase", "The shipment was packed in accordance with international safety standards.", "그 배송품은 국제 안전 기준에 따라 포장되었습니다.", "in accordance with standards", "killer", ["according to", "in compliance with"]],
+      ["on behalf of", "~을 대표하여, 대신하여", "phrase", "Ms. Patel signed the agreement on behalf of the regional office.", "Patel 씨는 지역 사무소를 대표하여 계약서에 서명했습니다.", "on behalf of the office", "basic", ["representing", "for"]],
+      ["in response to", "~에 응하여, 대응하여", "phrase", "In response to customer feedback, the airline revised its boarding procedure.", "고객 의견에 대응하여 항공사는 탑승 절차를 수정했습니다.", "in response to feedback", "killer", ["following feedback", "as a reaction to"]],
+      ["regardless of", "~와 관계없이", "preposition", "All applicants will be considered regardless of previous industry experience.", "모든 지원자는 이전 업계 경험과 관계없이 검토될 것입니다.", "regardless of experience", "killer", ["irrespective of", "no matter"]],
+      ["provided that", "~라는 조건으로", "conjunction", "Employees may work remotely provided that their managers approve the schedule.", "관리자가 일정을 승인한다는 조건으로 직원들은 원격 근무를 할 수 있습니다.", "provided that approval is given", "killer", ["as long as", "on condition that"]],
+      ["be eligible for", "~을 받을 자격이 있다", "idiom", "Customers who purchase two devices are eligible for free installation.", "기기 두 대를 구매하는 고객은 무료 설치를 받을 자격이 있습니다.", "be eligible for installation", "basic", ["qualify for", "be entitled to"]],
+      ["take effect", "시행되다, 효력이 발생하다", "verb", "The updated refund policy will take effect on July 1.", "개정된 환불 정책은 7월 1일에 시행됩니다.", "take effect on July 1", "basic", ["become effective", "go into effect"]],
+      ["at one's convenience", "편한 시간에", "idiom", "Please review the attached proposal at your earliest convenience.", "첨부된 제안서를 가능한 편한 빠른 시간에 검토해 주십시오.", "at your earliest convenience", "killer", ["when convenient", "as soon as possible"]]
+    ]
   }
 ];
 
