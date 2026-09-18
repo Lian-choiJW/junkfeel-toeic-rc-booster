@@ -1,5 +1,6 @@
 import { part5Bank } from "@/data/part5Bank";
 import { part67Bank } from "@/data/part67Bank";
+import { scoreBasedWeakTags } from "@/data/scoreProfile";
 import { vocabBank } from "@/data/vocabBank";
 import type { StudyResult } from "@/types";
 
@@ -33,7 +34,8 @@ export function getDashboardStats(results: StudyResult[]) {
 }
 
 export function getRecommendedNext(results: StudyResult[]) {
-  const weakTags = getMissedTagCounts(results).map(([tag]) => tag);
+  const missedTags = getMissedTagCounts(results).map(([tag]) => tag);
+  const weakTags = missedTags.length ? missedTags : scoreBasedWeakTags;
   const weakTag = weakTags[0] || "";
   const solvedIds = new Set(results.map((result) => result.itemId));
   const matchesWeak = (tags: string[]) => weakTags.some((tag) => tags.includes(tag));
@@ -41,9 +43,9 @@ export function getRecommendedNext(results: StudyResult[]) {
   const part67 = part67Bank.find((item) => matchesWeak([...item.tags, item.questionFocus || ""]) && !solvedIds.has(item.id)) || part67Bank.find((item) => !solvedIds.has(item.id)) || part67Bank[0];
   const vocab = vocabBank.find((item) => matchesWeak(item.tags) && !solvedIds.has(item.id)) || vocabBank.find((item) => !solvedIds.has(item.id)) || vocabBank[0];
 
-  let target: StudyTarget = "vocab";
-  let itemId = vocab.id;
-  let reason = "기록이 아직 적어서 덩어리 단어부터 워밍업";
+  let target: StudyTarget = "part5";
+  let itemId = part5.id;
+  let reason = "최근 성적표 기준 문법이 최우선이라 Part 5부터 추천";
 
   if (weakTag) {
     const part5Score = part5.tags.includes(weakTag) || part5.anchorType === weakTag ? 3 : 0;

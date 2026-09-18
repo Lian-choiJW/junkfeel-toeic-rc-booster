@@ -1,21 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { defaultDiagnosisInput, latestToeicScore, rcAbilityProfile, scoreComparison } from "@/data/scoreProfile";
 import { diagnoseScore } from "@/lib/diagnosis";
 import type { DiagnosisInput, DiagnosisResult as DiagnosisResultType } from "@/types";
 import { DiagnosisResult } from "./DiagnosisResult";
 
-const initial: DiagnosisInput = {
-  totalScore: 725,
-  lcScore: 420,
-  rcScore: 305,
-  targetScore: 850,
-  targetRcScore: 380,
-  dailyMinutes: 50
-};
-
 export function ScoreInputForm() {
-  const [form, setForm] = useState(initial);
+  const [form, setForm] = useState(defaultDiagnosisInput);
   const [fileName, setFileName] = useState("");
   const [result, setResult] = useState<DiagnosisResultType | null>(null);
 
@@ -27,7 +19,24 @@ export function ScoreInputForm() {
     <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
       <section className="rounded-md border border-line bg-white p-5 shadow-soft">
         <h1 className="text-3xl font-black text-ink">점수 진단</h1>
-        <p className="mt-2 leading-7 text-slate-600">성적표 PDF 업로드는 MVP에서 화면만 제공합니다. 자동 추출이 안 되면 아래 점수를 직접 입력해 분석합니다.</p>
+        <p className="mt-2 leading-7 text-slate-600">
+          최근 성적은 Total {latestToeicScore.totalScore}, LC {latestToeicScore.lcScore}, RC {latestToeicScore.rcScore}입니다.
+          지난 기준보다 총점 +{scoreComparison.totalDelta}, LC +{scoreComparison.lcDelta}, RC +{scoreComparison.rcDelta} 올랐지만 LC-RC 격차는 {scoreComparison.latestLcRcGap}점입니다.
+        </p>
+        <div className="mt-4 grid gap-2">
+          {rcAbilityProfile.map((item) => (
+            <div key={item.label} className="grid grid-cols-[5rem_1fr_auto] items-center gap-2 border border-line bg-slate-50 px-3 py-2 text-sm">
+              <span className="font-black text-ink">{item.label}</span>
+              <div className="h-2 border border-line bg-white">
+                <div className="h-full bg-ocean" style={{ width: `${item.percent}%` }} />
+              </div>
+              <span className="font-bold text-slate-700">{item.percent}%</span>
+              <p className="col-span-3 text-xs font-semibold leading-5 text-slate-600">
+                {item.focus} · 평균 {item.average}% · {item.note}
+              </p>
+            </div>
+          ))}
+        </div>
         <label className="mt-5 flex cursor-pointer flex-col items-center justify-center rounded-md border border-dashed border-blue-300 bg-blue-50 px-4 py-8 text-center font-bold text-blue-700">
           <span>{fileName || "PDF 성적표 업로드"}</span>
           <span className="mt-1 text-sm font-semibold text-blue-600">자동 OCR은 추후 지원 예정</span>

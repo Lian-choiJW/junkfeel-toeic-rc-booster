@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { part5Bank } from "@/data/part5Bank";
 import { part67Bank } from "@/data/part67Bank";
+import { latestToeicScore, rcAbilityProfile, scoreComparison } from "@/data/scoreProfile";
 import { vocabBank } from "@/data/vocabBank";
 import { getStudyResults } from "@/lib/localStorage";
 import { getDashboardStats } from "@/lib/studyEngine";
@@ -26,7 +27,7 @@ const tabs: { id: Tab; label: string }[] = [
 ];
 
 export function StudyTabs() {
-  const [active, setActive] = useState<Tab>("vocab");
+  const [active, setActive] = useState<Tab>("part5");
   const [vocabIndex, setVocabIndex] = useState(0);
   const [part5Index, setPart5Index] = useState(0);
   const [part67Index, setPart67Index] = useState(0);
@@ -73,6 +74,27 @@ export function StudyTabs() {
   return (
     <div className="space-y-3">
       <section className="sheet-panel">
+        <div className="grid gap-0 border-b border-line bg-white md:grid-cols-[1fr_1fr]">
+          <div className="border-b border-line p-3 md:border-b-0 md:border-r">
+            <p className="text-xs font-bold text-slate-500">Latest TOEIC</p>
+            <h2 className="mt-1 text-base font-bold text-ink">
+              Total {latestToeicScore.totalScore} · LC {latestToeicScore.lcScore} · RC {latestToeicScore.rcScore}
+            </h2>
+            <p className="mt-1 text-sm font-semibold text-slate-600">
+              지난 기준 대비 총점 +{scoreComparison.totalDelta}, RC +{scoreComparison.rcDelta}. LC-RC 격차 {scoreComparison.latestLcRcGap}점.
+            </p>
+          </div>
+          <div className="p-3">
+            <p className="text-xs font-bold text-slate-500">Priority</p>
+            <div className="mt-2 flex flex-wrap gap-1">
+              {rcAbilityProfile.filter((item) => item.focus === "최우선" || item.focus === "강화" || item.focus === "속도").map((item) => (
+                <span key={item.label} className="border border-line bg-slate-50 px-2 py-1 text-xs font-bold text-slate-700">
+                  {item.label} {item.percent}%
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
         <div className="grid gap-0 md:grid-cols-[1fr_auto] md:items-stretch">
           <div className="grid gap-0 sm:grid-cols-4">
             <Metric label="Rows" value={`${stats.solved}`} />

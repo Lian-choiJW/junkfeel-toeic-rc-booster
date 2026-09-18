@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { latestToeicScore, scoreComparison } from "@/data/scoreProfile";
 
 export function HeroSection() {
   return (
@@ -26,9 +27,9 @@ export function HeroSection() {
         <div className="rounded-md border border-line bg-slate-50 p-5 shadow-soft">
           <div className="grid gap-3">
             {[
-              ["RC 305", "Part 7 근거 찾기 우선"],
-              ["Part 5", "품사, 수일치, 전치사 집중"],
-              ["오답노트", "틀린 태그 기반 다음 학습"]
+              [`RC ${latestToeicScore.rcScore}`, `지난 기준보다 +${scoreComparison.rcDelta}, 문법 보강 우선`],
+              ["Part 5", "문법, 품사, 전치사 집중"],
+              ["어휘", "고난도 단어와 collocation 확장"]
             ].map(([title, text]) => (
               <div key={title} className="rounded-md border border-line bg-white p-4">
                 <p className="text-sm font-bold text-ocean">{title}</p>
